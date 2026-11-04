@@ -519,15 +519,16 @@ body.menu-open .bozza,body.menu-open .barra{opacity:0;pointer-events:none}
 </div></div>
 
 <script>
-/* ===== SCADENZA ANTEPRIMA: cambia solo questa data (anno-mese-giorno) ===== */
-var SCADENZA = "2026-11-03";
+/* ===== SCADENZA ANTEPRIMA (ora di Roma): "anno-mese-giornoTore:minuti" ===== */
+var SCADENZA = "2026-11-07T22:00";
 var VIDEO_DESKTOP = "https://videos.pexels.com/video-files/4177954/4177954-hd_1920_1080_30fps.mp4";
 var VIDEO_MOBILE  = "https://videos.pexels.com/video-files/4178350/4178350-hd_720_1280_30fps.mp4";
 
 (function(){
-  var p = SCADENZA.split("-");
-  document.getElementById("data-scad").textContent = p[2] + "/" + p[1] + "/" + p[0];
-  if (new Date() > new Date(SCADENZA + "T23:59:59")) {
+  var fine = new Date(SCADENZA + ":00+01:00"); /* fuso di Roma (ora solare) */
+  var p = SCADENZA.split("T"), d = p[0].split("-");
+  document.getElementById("data-scad").textContent = d[2] + "/" + d[1] + " ore " + p[1];
+  if (new Date() > fine) {
     document.getElementById("scaduta").classList.add("on");
     document.querySelector("main").innerHTML = "";
     document.body.classList.add("ready");
